@@ -18,10 +18,10 @@ services:
       db:
         condition: service_healthy
   db:
-    image: postgres:17
+    image: postgres:18
     restart: always
     volumes:
-      - postgres_data:/var/lib/postgresql/data/
+      - postgres_data:/var/lib/postgresql/
       - /etc/localtime:/etc/localtime:ro
     networks:
       - internal
