@@ -4,5 +4,4 @@ jsonfield2==4.0.0.post0
 Markdown==3.10.2
 nlzss==0.1.2
 psycopg2-binary==2.9.11
-pycryptodome==3.23.0
-Wii.py==0.1
+Wii.py==0.3
