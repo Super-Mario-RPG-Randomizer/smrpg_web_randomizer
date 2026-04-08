@@ -1,4 +1,4 @@
-Django==6.0.3
+Django==6.0.4
 gunicorn==25.1.0
 jsonfield2==4.0.0.post0
 Markdown==3.10.2
