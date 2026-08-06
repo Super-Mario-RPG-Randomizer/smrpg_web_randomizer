@@ -1,0 +1,23 @@
+name: Feature request
+description: Suggest an idea for a new feature you would like to see added to the randomizer.
+title: "[Feature]: "
+labels: [enhancement]
+
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Suggestion
+      description: What is your suggestion? Provide as much detail as you can.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: difficulty-confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: This is not a suggestion to change a specific existing ship password, Melody Bay tune, or invisible item location on the basis of it being too difficult.
+          required: true
+        - label: I acknowledge and accept that SMRPG Randomizer is a volunteer-run, open-source fan project, and that my feature suggestion may not end up being implemented if no developer comes along with the time and interest to implement it. I will not leave additional comments that betray this understanding.
+          required: true

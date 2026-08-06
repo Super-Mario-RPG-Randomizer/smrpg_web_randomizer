@@ -1,0 +1,28 @@
+name: Star Hill wish submission
+description: The dialogs that display if you talk to the smiley stars on Star Hill
+title: "[Submission - Star Hill Wish]: "
+labels: [submission]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit a wish to be added to the Star Hill wish star pool.  
+
+        Supported characters:  
+        `A-Z`, `a-z`, `0-9`, and any of `♥♪•~©:;#×+%↑→←*&()-/?!.,`
+
+        (Note: unlike ship passwords and Melody Bay tunes, Star Hill wishes are not credited.)
+
+        You can see existing Star Hill wishes here: https://github.com/pidgezero-one/smrpg_web_randomizer/blob/v9-wip/randomizer/data/minigames/star_hill_wishes.py#L3
+
+  - type: textarea
+    id: wish
+    attributes:
+      label: Wish text
+      description: | 
+        These are generally very short, brief statements and not extended dialogs.  
+        It is recommended to use the [Lazy Shell editor](https://github.com/Yakibomb/LAZYSHELL-UPDATED/releases) to preview your text for run-on sentences and horizontal alignment. There should be a good spot to await the user to press A within every 3 lines or less to prevent forced scrolling.  
+        You don't *have* to do this, but if you don't, your submission might sit in the queue indefinitely since it would require someone else to take the time to format it for you. It's best to just do it yourself.
+    validations:
+      required: true

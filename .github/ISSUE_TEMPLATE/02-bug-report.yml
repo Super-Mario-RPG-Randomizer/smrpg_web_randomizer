@@ -1,0 +1,83 @@
+name: Bug report (gameplay or logic issues)
+description: Report something that is working incorrectly (not just cosmetically). Do not use this form for issues unique to Crowd Control or for things that are not actually bugs.
+title: "[Bug - Gameplay/Logic]: "
+labels: [bug]
+
+body:
+  # ─────────────────────────────────────────────
+  # Intro / warning text
+  # ─────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        **PLEASE DO NOT USE THIS FORM TO REQUEST FEATURES!  
+        This form is for bug reports only**.
+
+  # ─────────────────────────────────────────────
+  # Platform info
+  # ─────────────────────────────────────────────
+  - type: input
+    id: platform
+    attributes:
+      label: Console or Emulator
+      description: |
+        If emulator, state which emulator and version.  
+        If console, state which flash cart firmware.
+      placeholder: "e.g. bsnes 115, SNES EverDrive v2.6"
+    validations:
+      required: true
+
+  # ─────────────────────────────────────────────
+  # Flags
+  # ─────────────────────────────────────────────
+  - type: textarea
+    id: flags
+    attributes:
+      label: Flags
+      description: Paste the flag string, if available
+    validations:
+      required: false
+
+  # ─────────────────────────────────────────────
+  # Seed / permalink
+  # ─────────────────────────────────────────────
+  - type: textarea
+    id: seed
+    attributes:
+      label: Seed number / hash or permalink
+      description: |
+        Provide ONE of the following:  
+        • Seed number or hash (from filename or download page)  
+        • Permalink URL (from download page)
+      placeholder: |
+        Seed: 123456
+        OR
+        https://randomizer.smrpgspeedruns.com/h/123456abcdef
+    validations:
+      required: true
+
+  # ─────────────────────────────────────────────
+  # Bug description
+  # ─────────────────────────────────────────────
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of problem
+      description: What happened? What did you expect to happen?
+    validations:
+      required: true
+
+  # ─────────────────────────────────────────────
+  # Required confirmation
+  # ─────────────────────────────────────────────
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Required confirmations
+      options:
+        - label: This issue occurs WITHOUT Crowd Control, which is [not officially supported](https://forum.warp.world/t/super-mario-rpg-legend-of-the-seven-stars-snes/14219).
+          required: true
+        - label: This is NOT about a ship password, melody bay tune, or invisible flag hint being difficult to solve (unless the hints, solution, or positioning is incorrect).
+          required: true
+        - label: If my seed has a spoiler log available, I have reviewed it thoroughly to make sure the issue I'm reporting is not simply a check I didn't know about, or forgot to do, or forgot to disable, or forgot to reduce the reward threshold for (i.e. marrymore suite, grate guy's game, etc). You can also talk to Frogfucius for hints about incomplete checks.
+          required: true

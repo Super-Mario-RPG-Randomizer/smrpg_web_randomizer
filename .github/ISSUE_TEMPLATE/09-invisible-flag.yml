@@ -1,0 +1,49 @@
+name: Invisible item submission
+description: The "Move invisible flag checks" flag moves the Three Musty Fears key item checks to randomly chosen distinct locations around the world. Suggest a placement here.
+title: "[Submission - Invisible Item]: "
+labels: [submission]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        If you have a great idea for a place that one of the three invisible items can be randomly placed with the "Move invisible flag checks" setting, submit it here.  
+        Use [area maps](https://fantasyanime.com/squaresoft/mariorpg/mariorpg_maps.htm) for reference.  
+        Note: unlike ship passwords and Melody Bay songs, invisible flag locations are not credited.
+
+        You can see the existing pool of locations here: https://github.com/pidgezero-one/smrpg_web_randomizer/blob/v9-wip/randomizer/progression/prizelocations.py#L10229
+
+  - type: textarea
+    id: location
+    attributes:
+      label: Describe the location
+      description: |
+        Give as much detail as possible.  
+        Optionally, use the [Lazy Shell editor](https://github.com/Yakibomb/LAZYSHELL-UPDATED/releases) to find the room number and xyz coordinates and include them here. It saves the devs a lot of time, but is not required if you are not comfortable navigating SMRPG's coordinate system.
+    validations:
+      required: true
+
+  - type: textarea
+    id: hint
+    attributes:
+      label: Hint text
+      description: |
+        This will be what one of the Three Musty Fears says to give the player a hint about where the item is. This is required, for obvious reasons. Devs will not come up with this for you.
+
+        Your location should ideally be unique and not confusable with too many other locations in the world.  
+        Example:  
+        * "My item's underneath blue curtains." ❌ - not specific enough. There are at least 5 rooms in the game with blue curtains, so it'll be hard for players to tell if they're not pressing A in the right spot or in the wrong room altogether.
+        * "My item is on a gold hydrant." ✅ - there is only one gold water pump in the world, and it is in Moleville.
+
+        The hint should also be brief and vague, but helpful.  
+        Example:  
+        * "My item is in Monstro Town behind the welcome sign." ❌ - too direct.
+        * "My item is behind a wooden bat." ✅ - the player will have to think about where they've seen one of these before.
+
+        Supported characters:  
+        `A-Z`, `a-z`, `0-9`, and any of `♥♪•~©:;#×+%↑→←*&()-/?!.,`
+
+        It is recommended to use the [Lazy Shell editor](https://github.com/Yakibomb/LAZYSHELL-UPDATED/releases) to preview your text for run-on sentences. Hints should be short enough to fit in a single dialog, but if you feel like your location won't be specific enough without more detail, make sure there is a good spot to await the user to press A within every 3 lines or less to prevent forced scrolling (usually the end of a sentence).  
+        You don't *have* to do this, but if you don't, your submission might sit in the queue indefinitely since it would require someone else to take the time to format it for you. It's best to just do it yourself.
+    validations:
+      required: true

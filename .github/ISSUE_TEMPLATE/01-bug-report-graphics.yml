@@ -1,0 +1,111 @@
+name: Bug report (cosmetic only)
+description: Report cosmetic bugs that do not otherwise affect gameplay or logic progression.
+title: "[Bug - Cosmetic]: "
+labels: [bug]
+
+body:
+  # ─────────────────────────────────────────────
+  # Intro / warning text
+  # ─────────────────────────────────────────────
+  - type: markdown
+    attributes:
+      value: |
+        **PLEASE DO NOT USE THIS FORM TO REQUEST FEATURES!  
+        This form is for bug reports only**.
+
+  # ─────────────────────────────────────────────
+  # Required confirmation
+  # ─────────────────────────────────────────────
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Check each box to confirm this report is **NOT** about any of the following expected behaviours.
+      options:
+        - label: Allies transforming into each other temporarily when using a weapon or spell that doesn't normally belong to them. 
+          required: true
+        - label: Some coins are not animated. 
+          required: true
+        - label: Some boss sprites don't have a walking animation or can't face northwest/northeast.
+          required: true
+        - label: Non-critical dialogs missing in boss fights, cutscenes, etc. Many dialogs are removed intentionally to reduce repetitive player input.
+          required: true
+
+  - type: checkboxes
+    id: confirmations_2
+    attributes:
+      label: Check each box to confirm this report is **NOT** about any of the following known hardware limitations.
+      options:
+        - label: Temporary freezing (~16-30 frames) when activating EXP stars in certain rooms (forest, pipe vault, booster tower, sunken ship, etc). 
+          required: true
+        - label: Sprites partially disappearing or glitching out in battle when there are too many tiles on the same scanline (i.e. Yaridovich attacking Bowser in the middle slot). 
+          required: true
+        - label: Bad sprite palette in a room where at least 6-8 non-protagonist sprites use a different palette from each other
+          required: true
+        - label: Some tickets about sprites overwriting each other (or overwriting shadows) will be closed due to hardware limitations, especially if the player is Bowser or Toadstool and it's a room with a lot of objects in it.
+          required: true
+
+  # ─────────────────────────────────────────────
+  # Platform info
+  # ─────────────────────────────────────────────
+  - type: input
+    id: platform
+    attributes:
+      label: Console or Emulator
+      description: |
+        If emulator, state which emulator and version.  
+        If console, state which flash cart firmware.
+      placeholder: "e.g. bsnes 115, SNES EverDrive v2.6"
+    validations:
+      required: true
+
+  # ─────────────────────────────────────────────
+  # Flags
+  # ─────────────────────────────────────────────
+  - type: textarea
+    id: flags
+    attributes:
+      label: Flags
+      description: Paste the flag string, if available
+    validations:
+      required: false
+
+  # ─────────────────────────────────────────────
+  # Seed / permalink
+  # ─────────────────────────────────────────────
+  - type: textarea
+    id: seed
+    attributes:
+      label: Seed number / hash or permalink
+      description: |
+        Provide ONE of the following:  
+        • Seed number or hash (from filename or download page)  
+        • Permalink URL (from download page)
+      placeholder: |
+        Seed: 123456
+        OR
+        https://randomizer.smrpgspeedruns.com/h/123456abcdef
+    validations:
+      required: true
+
+  # ─────────────────────────────────────────────
+  # Seed / permalink
+  # ─────────────────────────────────────────────
+  - type: textarea
+    id: ow
+    attributes:
+      label: Who is your OVERWORLD character?
+      description: |
+        This depends on your cosmetics settings which are not baked into the hash.
+    validations:
+      required: true
+
+  # ─────────────────────────────────────────────
+  # Bug description
+  # ─────────────────────────────────────────────
+  - type: textarea
+    id: description
+    attributes:
+      label: Description of problem
+      description: What happened? What did you expect to happen?
+    validations:
+      required: true

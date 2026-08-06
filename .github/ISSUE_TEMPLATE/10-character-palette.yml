@@ -1,0 +1,86 @@
+name: Ally palette submission
+description: Submit a palette that can be chosen by the Palette Swaps flag.
+title: "[Submission - Ally Palette]: "
+labels: [submission]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit a palette that can be chosen by the Palette Swaps flag.  
+        Design your palette in the [Lazy Shell editor](https://github.com/Yakibomb/LAZYSHELL-UPDATED/releases) and then write down your colours in this form.  
+        The form will ask you for **fifteen colours**. The palette editor shows 16 colours. Omit the first one. **Do not list all sixteen colours.**
+
+        You can see existing palettes here: https://github.com/pidgezero-one/smrpg_web_randomizer/tree/v9-wip/randomizer/data/allies/palettes
+
+        Including an underwater and poison palette **is required**. Submissions without these will not be accepted.
+
+  - type: input
+    id: character
+    attributes:
+      label: Character
+      description: | 
+        Which character is this for? (Mario, Mallow, Geno, Bowser, Toadstool)
+    validations:
+      required: true
+
+  - type: input
+    id: pname
+    attributes:
+      label: Palette name
+      description: |
+        Give us a name to identify your palette with. 10 characters or less.  
+        If you don't click the "rename character" checkbox, this will only be used to identify it in the palette picker and will not be used in-game.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmations
+    attributes:
+      label: Rename character?
+      options:
+        - label: If the "Change character names" flag is applied, this character's name should be changed to my palette's name. 
+
+  - type: input
+    id: name
+    attributes:
+      label: Your name or handle
+      description: |
+        When your palette is chosen, you will appear in the ending credits.  
+        Only capital letters A-Z, periods, spaces, and underscores are supported (no numbers or other characters).  
+        Leave this blank if you prefer to be anonymous, in which case the palette will be uncredited.
+
+  - type: textarea
+    id: basic
+    attributes:
+      label: Basic palette
+      description: | 
+        These are the colours the character will use most of the time.
+        List the 15 colours, one per line, in the format `#RRGGBB` (html/hex format).  
+        In the Lazy Shell palette editor, you will find the six digits for your colour in the "HTML" field.
+    validations:
+      required: true
+
+  - type: textarea
+    id: dark
+    attributes:
+      label: Dark/underwater palette
+      description: | 
+        These are the colours the character will use while underwater.  
+        List the 15 colours, one per line, in the format `#RRGGBB` (html/hex format).  
+        In the Lazy Shell palette editor, you will find the six digits for your colour in the "HTML" field.  
+        (Note: This is usually just a darkened version of the standard palette. Use the "Effects" tab in the Lazy Shell palette editor to take most of the work out of this.)
+    validations:
+      required: true
+
+  - type: textarea
+    id: psn
+    attributes:
+      label: Poison palette
+      description: | 
+        These are the colours the character will use while poisoned.  
+        List the 15 colours, one per line, in the format `#RRGGBB` (html/hex format).  
+        In the Lazy Shell palette editor, you will find the six digits for your colour in the "HTML" field.  
+        (Note: You can get creative with blue tinted skin, purple tinted clothes, etc, whatever you think looks good. Use the "Effects" tab in the Lazy Shell palette editor to apply tints.)
+    validations:
+      required: true

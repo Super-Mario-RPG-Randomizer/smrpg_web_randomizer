@@ -1,0 +1,89 @@
+name: Melody Bay tune submission
+description: The "Randomize Tadpole Pond songs" flag will select three compositions at random from a pool submitted by players. Your tunes can be shorter than 8 notes and can have an adjusted timescale.
+title: "[Submission - Melody Bay]: "
+labels: [submission]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # Compose your song [here](https://pidgezero.one/tadpole-pond-composer/index.html) before filling out any fields below.  
+        You can see existing songs here: https://github.com/pidgezero-one/smrpg_web_randomizer/blob/v9-wip/randomizer/data/minigames/melody_bay.py#L572
+
+  - type: textarea
+    id: submission
+    attributes:
+      label: Tune notation
+      description: |
+        Paste the output of the composer tool here.  
+        Tunes do not necessarily have to be from Mario games. Other games and franchises are welcome.
+    validations:
+      required: true
+
+  - type: input
+    id: songname
+    attributes:
+      label: Name of your song
+      description: |
+        In case this has to be used in a dialog, this should not be exorbitantly long.
+    validations:
+      required: true
+
+  - type: input
+    id: name
+    attributes:
+      label: Your name or handle
+      description: |
+        If your song is randomly selected for the seed, this is the name that will appear in the game's ending sequence.  
+        Only capital letters A-Z, periods, spaces, and underscores are supported (no numbers or other characters).  
+        Leave this blank if you prefer to be anonymous.
+
+  - type: markdown
+    attributes:
+      value: |
+        Your song may end up as the first, second, or third song in a seed, so the NPCs that give hints for the first two songs need to have dialog to match it. Players must have something to go off of so that they do not need to entirely bruteforce guess what your song is, so you must provide hint text for your creation.
+
+        This is required, developers will not come up with hint text for you.
+
+        Supported characters for hint dialogs:  
+        `A-Z`, `a-z`, `0-9`, and any of `♥♪•~©:;#×+%↑→←*&()-/?!.,`
+
+        It is recommended to use the [Lazy Shell editor](https://github.com/Yakibomb/LAZYSHELL-UPDATED/releases) to preview your text for run-on sentences. There should be a good spot to await the user to press A within every 3 lines or less to prevent forced scrolling.  
+        You don't *have* to do this, but if you don't, your submission might sit in the queue indefinitely since it would require someone else to take the time to format it for you. It's best to just do it yourself.
+        
+        (Note the third Melody Bay song hints are audio only and will be derived from your submission.)
+
+  - type: textarea
+    id: hint1
+    attributes:
+      label: Hint 1
+      description: |
+        The apprentice tadpole should give a statement about the first of the three songs.  
+        The musical score will also be printed on Frogfucius' scroll, so this hint does not need to be too detailed.
+
+        If you like, you can simply follow the original game's template: "It's [song name]. "[NOTES]". Toadofsky's fond of it, too!"
+    validations:
+      required: true
+
+  - type: textarea
+    id: hint2_pond
+    attributes:
+      label: Hint 2 (pond)
+      description: |
+        The apprentice tadpole should also give a statement about the second of the three songs.
+
+        If you like, you can simply follow the original game's template: "It's [song name]. "[NOTES]". It's got soul!"
+    validations:
+      required: true
+
+  - type: textarea
+    id: hint2_mines
+    attributes:
+      label: Hint 2 (mines)
+      description: |
+        The miners in Moleville should give a statement about the second of the three songs.  
+        You do not need to be as elaborate as the original game's _Moleville Blues_ lyrics (unless you want to, of course) but your text should be descriptive enough to give some idea of what the notes are.  
+        Either this hint or the second tadpole hint should list every note in the song in one way or another.  
+        You can instead opt to say something simple i.e. "The Moleville Blues? Oh, it's really just Zelda's Lullaby with different words."
+    validations:
+      required: true

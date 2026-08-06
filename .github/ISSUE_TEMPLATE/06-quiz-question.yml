@@ -1,0 +1,54 @@
+name: Dr. Topper quiz question submission
+description: To be used when generating Dr. Topper's pool of 40 randomly chosen questions
+title: "[Submission - Dr. Topper Quiz Question]: "
+labels: [submission]
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Submit a question to be added to the Dr. Topper quiz pool. If the question is not SMRPG related, it will only be used if the extended quiz setting is enabled.
+
+        Supported characters:  
+        `A-Z`, `a-z`, `0-9`, and any of `♥♪•~©:;#×+%↑→←*&()-/?!.,`
+
+        (Note: unlike ship passwords and Melody Bay songs, trivia questions are not credited.)
+
+        You can see existing quiz questions here: https://github.com/pidgezero-one/smrpg_web_randomizer/blob/v9-wip/randomizer/data/minigames/quiz_questions.py#L83
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Question text
+      description: |
+        The dialog that Dr. Topper will say.  
+        It is recommended to use the [Lazy Shell editor](https://github.com/Yakibomb/LAZYSHELL-UPDATED/releases) to preview your text and be sure that it can fit in a single three-line dialog with no scrolling (including the dialog starting with "DR. TOPPER:").  
+        You don't *have* to do this, but if you don't, your submission might sit in the queue indefinitely since it would require someone else to take the time to format it for you. It's best to just do it yourself.
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        Answers must be short enough to fit on one line and encased in parentheses. Preview in Lazy Shell if you have to.
+
+  - type: input
+    id: correct-answer
+    attributes:
+      label: Right answer
+    validations:
+      required: true
+
+  - type: input
+    id: wrong-answer-1
+    attributes:
+      label: Wrong answer 1
+    validations:
+      required: true
+
+  - type: input
+    id: wrong-answer-2
+    attributes:
+      label: Wrong answer 2
+    validations:
+      required: true
