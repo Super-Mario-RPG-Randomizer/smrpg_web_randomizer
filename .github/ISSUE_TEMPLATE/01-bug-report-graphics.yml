@@ -19,21 +19,7 @@ body:
   - type: checkboxes
     id: confirmations
     attributes:
-      label: Check each box to confirm this report is **NOT** about any of the following expected behaviours.
-      options:
-        - label: Allies transforming into each other temporarily when using a weapon or spell that doesn't normally belong to them. 
-          required: true
-        - label: Some coins are not animated. 
-          required: true
-        - label: Some boss sprites don't have a walking animation or can't face northwest/northeast.
-          required: true
-        - label: Non-critical dialogs missing in boss fights, cutscenes, etc. Many dialogs are removed intentionally to reduce repetitive player input.
-          required: true
-
-  - type: checkboxes
-    id: confirmations_2
-    attributes:
-      label: Support guidelines
+      label: Do this first
       options:
         - label: I have read the [support guidelines](https://github.com/Super-Mario-RPG-Randomizer/smrpg_web_randomizer/blob/beta/SUPPORT.md) to make sure my issue is legitimate and not already known.
           required: true
@@ -48,7 +34,7 @@ body:
       description: |
         If emulator, state which emulator and version.  
         If console, state which flash cart firmware.
-      placeholder: "e.g. bsnes 115, SNES EverDrive v2.6"
+      placeholder: "e.g. bsnes 115, FXPak Pro 1.11.2"
     validations:
       required: true
 
@@ -59,7 +45,7 @@ body:
     id: flags
     attributes:
       label: Flags
-      description: Paste the flag string, if available
+      description: Paste the flag string, if available. We need this because your cosmetic settings are not included in the seed permalink.
     validations:
       required: false
 
