@@ -14,8 +14,6 @@ body:
 
         (Note: unlike ship passwords and Melody Bay songs, trivia questions are not credited.)
 
-        You can see existing quiz questions here: https://github.com/pidgezero-one/smrpg_web_randomizer/blob/v9-wip/randomizer/data/minigames/quiz_questions.py#L83
-
   - type: textarea
     id: question
     attributes:

@@ -11,8 +11,6 @@ body:
         Use [area maps](https://fantasyanime.com/squaresoft/mariorpg/mariorpg_maps.htm) for reference.  
         Note: unlike ship passwords and Melody Bay songs, invisible flag locations are not credited.
 
-        You can see the existing pool of locations here: https://github.com/pidgezero-one/smrpg_web_randomizer/blob/v9-wip/randomizer/progression/prizelocations.py#L10229
-
   - type: textarea
     id: location
     attributes:

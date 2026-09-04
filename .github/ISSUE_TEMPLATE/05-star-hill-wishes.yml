@@ -14,8 +14,6 @@ body:
 
         (Note: unlike ship passwords and Melody Bay tunes, Star Hill wishes are not credited.)
 
-        You can see existing Star Hill wishes here: https://github.com/pidgezero-one/smrpg_web_randomizer/blob/v9-wip/randomizer/data/minigames/star_hill_wishes.py#L3
-
   - type: textarea
     id: wish
     attributes:

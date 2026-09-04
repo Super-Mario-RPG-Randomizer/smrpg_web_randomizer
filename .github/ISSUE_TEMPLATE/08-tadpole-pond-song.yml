@@ -8,8 +8,7 @@ body:
     attributes:
       value: |
         # Compose your song [here](https://pidgezero.one/tadpole-pond-composer/index.html) before filling out any fields below.  
-        You can see existing songs here: https://github.com/pidgezero-one/smrpg_web_randomizer/blob/v9-wip/randomizer/data/minigames/melody_bay.py#L572
-
+        
   - type: textarea
     id: submission
     attributes:
