@@ -23,6 +23,8 @@ body:
       options:
         - label: I have read the [support guidelines](https://github.com/Super-Mario-RPG-Randomizer/smrpg_web_randomizer/blob/beta/SUPPORT.md) to make sure my issue is legitimate and not already known.
           required: true
+        - label: I have checked to make sure I'm not opening a ticket for something [that's already been reported](https://github.com/Super-Mario-RPG-Randomizer/smrpg_web_randomizer/issues).
+          required: true
 
   # ─────────────────────────────────────────────
   # Platform info
