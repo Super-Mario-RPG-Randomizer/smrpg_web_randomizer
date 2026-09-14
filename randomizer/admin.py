@@ -7,7 +7,7 @@ from .models import Seed, Patch
 
 @admin.register(Seed)
 class SeedAdmin(admin.ModelAdmin):
-    readonly_fields = ('permalink',)
+    readonly_fields = ('generated', 'permalink')
 
     # Custom field for permalink to seed.
     @admin.display(description="Permalink")
@@ -17,7 +17,7 @@ class SeedAdmin(admin.ModelAdmin):
 
 @admin.register(Patch)
 class PatchAdmin(admin.ModelAdmin):
-    readonly_fields = ('permalink',)
+    readonly_fields = ('generated', 'permalink')
 
     # Custom field for permalink to patch.
     @admin.display(description="Permalink")
