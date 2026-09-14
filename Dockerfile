@@ -9,7 +9,7 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
 # install system dependencies
-RUN apt-get update && apt-get install -y gcc git netcat-openbsd
+RUN apt-get update && apt-get install -y gcc git netcat-openbsd procps
 
 # install Python dependencies
 RUN pip install --upgrade pip
@@ -20,6 +20,9 @@ RUN pip install -r requirements.txt
 COPY ./entrypoint.sh .
 RUN sed -i 's/\r$//g' /usr/src/app/entrypoint.sh
 RUN chmod +x /usr/src/app/entrypoint.sh
+
+COPY ./web_*.sh ./
+RUN chmod +x /usr/src/app/web_*.sh
 
 # copy project
 COPY . .

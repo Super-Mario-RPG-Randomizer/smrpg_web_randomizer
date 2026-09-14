@@ -145,9 +145,22 @@ AUTH_PASSWORD_VALIDATORS = [
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    "formatters": {
+        "verbose": {
+            "class": "colorlog.ColoredFormatter",
+            "format": "{asctime} {module}[{process:d}] {log_color}{levelname}{reset} {message}",
+            "style": "{",
+        },
+        "simple": {
+            "class": "colorlog.ColoredFormatter",
+            "format": "{asctime} {log_color}{levelname}{reset} {message}",
+            "style": "{",
+        },
+    },
     'handlers': {
         'console': {
             'class': 'logging.StreamHandler',
+            "formatter": "verbose",
         },
     },
     'loggers': {

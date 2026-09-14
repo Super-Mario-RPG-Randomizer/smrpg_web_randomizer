@@ -40,11 +40,10 @@ ENV HOME=/home/app
 ENV APP_HOME=/home/app/web
 RUN mkdir $APP_HOME
 RUN mkdir $APP_HOME/staticfiles
-RUN chown -R app:app $HOME
 WORKDIR $APP_HOME
 
 # install system dependencies
-RUN apt-get update && apt-get install -y gcc git netcat-openbsd
+RUN apt-get update && apt-get install -y gcc git netcat-openbsd procps
 
 # install Python dependencies
 COPY --from=builder /usr/src/app/wheels /wheels
@@ -57,11 +56,14 @@ COPY ./entrypoint.prod.sh .
 RUN sed -i 's/\r$//g' $APP_HOME/entrypoint.prod.sh
 RUN chmod +x $APP_HOME/entrypoint.prod.sh
 
+COPY ./web_*.prod.sh $APP_HOME/
+RUN chmod +x $APP_HOME/web_*.sh
+
 # copy project
 COPY . $APP_HOME
 
 # chown all the files to the app user
-RUN chown -R app:app $APP_HOME
+RUN chown -R app:app $HOME
 
 # change to the app user
 USER app

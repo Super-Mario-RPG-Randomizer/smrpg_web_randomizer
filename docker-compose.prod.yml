@@ -4,7 +4,9 @@ services:
       context: .
       dockerfile: Dockerfile.prod
     restart: always
-    command: sh -c "(python manage.py db_worker --queue-name seeds &) && (python manage.py db_worker --queue-name seeds &) && gunicorn smrpg_web_randomizer.wsgi:application --bind 0.0.0.0:8000 --timeout 3600 -w 4"
+    command: /home/app/web/web_start.prod.sh
+    pre_stop:
+      - command: /home/app/web/web_stop.prod.sh
     volumes:
       - static_volume:/home/app/web/staticfiles
       - /etc/localtime:/etc/localtime:ro

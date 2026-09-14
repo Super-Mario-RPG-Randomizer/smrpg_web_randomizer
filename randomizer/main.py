@@ -126,9 +126,10 @@ def create(
     # shuffle_prizes), so more than one rebuild can be needed; loop until it
     # builds clean. Each round opens at least one gate, and there are only 17,
     # so the bound is generous and purely a runaway guard.
-    for _ in range(20):
+    for i in range(1, 21):
         try:
             return build()
-        except SettingsRelaxed:
+        except SettingsRelaxed as e:
+            logger.warning(f'Seed {seed} attempt {i}: {str(e)}')
             continue
     return build()

@@ -1,7 +1,9 @@
 services:
   web:
     build: .
-    command: sh -c "(python manage.py db_worker --queue-name seeds &) && python manage.py runserver 0.0.0.0:8000"
+    command: /usr/src/app/web_start.sh
+    pre_stop:
+      - command: /usr/src/app/web_stop.sh
     volumes:
       - ./:/usr/src/app/
       - /etc/localtime:/etc/localtime:ro

@@ -75,6 +75,6 @@ def generate_seed_task(
             hash=h.hexdigest(),
             patch=patch_dump,
         )
-        logger.info(f"Patch {patch.id} for seed {seed} finished generation")
+        logger.info(f"Seed {seed}: Patch {patch.id} finished generation")
 
     return str(patch.id)
