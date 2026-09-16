@@ -5,8 +5,16 @@ from django.utils.html import format_html
 from .models import Seed, Patch
 
 
+class ReadOnlyAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        return False
+
+    def has_change_permission(self, request, obj=None):
+        return False
+
+
 @admin.register(Seed)
-class SeedAdmin(admin.ModelAdmin):
+class SeedAdmin(ReadOnlyAdmin):
     readonly_fields = ('generated', 'permalink')
     list_display = ('id', 'seed', 'generated', 'permalink')
     ordering = ('-generated',)
@@ -18,7 +26,7 @@ class SeedAdmin(admin.ModelAdmin):
 
 
 @admin.register(Patch)
-class PatchAdmin(admin.ModelAdmin):
+class PatchAdmin(ReadOnlyAdmin):
     readonly_fields = ('generated', 'permalink')
     list_display = ('id', 'seed', 'generated', 'permalink')
     ordering = ('-generated',)
