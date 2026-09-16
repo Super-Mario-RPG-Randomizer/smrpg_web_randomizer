@@ -1,6 +1,7 @@
 import logging
+from asgiref.sync import async_to_sync
 
-from django.core.cache import cache
+from channels.layers import get_channel_layer
 from django.db import transaction
 from django.tasks import task, TaskContext
 
@@ -32,18 +33,22 @@ def generate_seed_task(
 
     logger.info(f"Seed {seed} starting generation")
 
+    # Set up channel layer to send status updates.
+    group_name = f"seed-status-{context.task_result.id}"
+    channel_layer = get_channel_layer()
+
     def progress_callback(
             message: str,
             percent: int,
     ) -> None:
         """Callback function to update message and percent as progress is done."""
         logger.info(f"Seed {seed}: Progress {percent}% - {message}")
-        cache_key = f'task-status-{context.task_result.id}'
         payload = {
+            'type': 'seed_status',
             'message': message,
             'percent': percent,
         }
-        cache.set(cache_key, payload)
+        async_to_sync(channel_layer.group_send)(group_name, payload)
 
     settings = Settings()
     settings.set_from_flag_string(flags)
@@ -76,5 +81,12 @@ def generate_seed_task(
             patch=patch_dump,
         )
         logger.info(f"Seed {seed}: Patch {patch.id} finished generation")
+
+    # Notify Websocket groups
+    payload = {
+        'type': 'seed_finished',
+        'patch_id': str(patch.id),
+    }
+    async_to_sync(channel_layer.group_send)(group_name, payload)
 
     return str(patch.id)

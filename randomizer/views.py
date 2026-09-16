@@ -1,6 +1,5 @@
 import pickle
 
-from django.tasks import TaskResultStatus
 from django.urls import reverse
 
 from randomizer.logic.check_list import CHECK_ROWS
@@ -18,7 +17,6 @@ import Wii
 import nlzss
 
 from django.conf import settings
-from django.core.cache import cache
 from django.http import (
     JsonResponse,
     HttpResponseBadRequest,
@@ -29,7 +27,7 @@ from django.http import (
 from django.utils.decorators import method_decorator
 from django.views import View
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import TemplateView, FormView, DetailView
+from django.views.generic import TemplateView, FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from randomizer.types.flags import FlagError
@@ -346,13 +344,11 @@ class GenerateStatusView(MixinClass, View):
     @staticmethod
     def get(request, seed_id):
         result = {}
-
-        # Check task status.
-        task_result = generate_seed_task.get_result(seed_id)
-
-        # Finished, get patch.
-        if task_result.status == TaskResultStatus.SUCCESSFUL:
-            patch = Patch.objects.select_related('seed').get(pk=task_result.return_value)
+        try:
+            patch = Patch.objects.select_related('seed').get(pk=seed_id)
+        except Patch.DoesNotExist:
+            result['error'] = 'Seed generation failed'
+        else:
             result['complete'] = True
             result['data'] = {
                 "logic": VERSION,
@@ -368,22 +364,6 @@ class GenerateStatusView(MixinClass, View):
                 "spoiler": patch.seed.spoiler if not patch.seed.race_mode else {},
                 "patch": pickle.loads(patch.patch),
             }
-
-        # Failed
-        elif task_result.status == TaskResultStatus.FAILED:
-            result['error'] = 'Seed generation failed'
-
-        # In progress, check cache for status update.
-        # If it's waiting for processing, it might not be in there yet.
-        else:
-            key = f'task-status-{task_result.id}'
-            data = cache.get(key)
-            if isinstance(data, dict):
-                result['stage'] = data.get('message', '')
-                result['percent'] = data.get('percent', 0)
-            else:
-                result['stage'] = 'Starting generation...'
-                result['percent'] = 0
 
         return JsonResponse(result)
 

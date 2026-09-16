@@ -7,4 +7,4 @@ do
 done
 
 # Web server.
-python manage.py runserver 0.0.0.0:8000
+uvicorn --reload --host 0.0.0.0 --port 8000 smrpg_web_randomizer.asgi:application

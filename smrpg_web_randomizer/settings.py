@@ -41,6 +41,7 @@ SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 # Application definition
 
 INSTALLED_APPS = [
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -87,7 +88,19 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'smrpg_web_randomizer.wsgi.application'
+ASGI_APPLICATION = "smrpg_web_randomizer.asgi.application"
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [{
+                "address": "redis://cache:6379",
+                "socket_timeout": None,  # Prevents Redis 8+ from timing out idle connections
+            }],
+        },
+    },
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
@@ -117,8 +130,8 @@ else:
 # Cache configuration - using DB cache for task progress.
 CACHES = {
     "default": {
-        "BACKEND": "django.core.cache.backends.memcached.PyMemcacheCache",
-        "LOCATION": "cache:11211",
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://cache:6379",
     }
 }
 

@@ -7,7 +7,7 @@ do
 done
 
 # Send regular exit code for web server.
-for pid in $(ps -aux | grep 'runserver' | grep -v grep | awk '{print $2}');
+for pid in $(ps -aux | grep 'uvicorn' | grep -v grep | awk '{print $2}');
 do
   kill $pid
 done

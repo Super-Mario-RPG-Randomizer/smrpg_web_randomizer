@@ -1,3 +1,5 @@
+channels==4.3.2
+channels_redis==4.3.0
 colorlog==6.12.0
 Django==6.1.1
 django-tasks-db==0.13.0
@@ -5,11 +7,14 @@ gunicorn==26.2.0
 Markdown==3.10.3
 nlzss==0.1.2
 pillow==12.3.0
-psycopg2-binary==2.9.12
+psycopg2-binary==2.9.13
 pymemcache==4.0.0
 pytest==9.1.1
 PyYAML==6.0.3
+redis==8.1.0
 scipy==1.18.1
 smrpgpatchbuilder==7.1.19
+uvicorn[standard]==0.53.0
+uvicorn-worker==0.4.0
 Wii.py==0.3
 git+https://gitlab.com/pidgezero_one/python-bps.git@0.1#egg=python-bps

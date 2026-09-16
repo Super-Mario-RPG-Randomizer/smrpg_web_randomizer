@@ -7,4 +7,4 @@ do
 done
 
 # Web server.
-gunicorn smrpg_web_randomizer.wsgi:application --bind 0.0.0.0:8000 --timeout 3600 -w $GUNICORN_WORKERS
+gunicorn smrpg_web_randomizer.asgi:application -k uvicorn_worker.UvicornWorker --bind 0.0.0.0:8000 --timeout 3600 -w $GUNICORN_WORKERS

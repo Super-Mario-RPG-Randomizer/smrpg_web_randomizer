@@ -14,8 +14,10 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path, include
 
 urlpatterns = [
@@ -25,3 +27,7 @@ urlpatterns = [
     path("accounts/login/", auth_views.LoginView.as_view(template_name='admin/login.html'), name='login'),
     path("admin/", admin.site.urls),
 ]
+
+# Serve static files automatically during local development
+if settings.DEBUG:
+    urlpatterns += staticfiles_urlpatterns()

@@ -29,9 +29,9 @@ services:
       timeout: 5s
       retries: 5
   cache:
-    image: memcached:1.6
+    image: redis:8.10
     ports:
-      - "11211:11211"
+      - "6379:6379"
 
 volumes:
   postgres_data:

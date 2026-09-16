@@ -285,8 +285,8 @@
                             return;
                         }
 
-                        async function checkStatus() {
-                            let data = await $.get(`/seed/status/${result.seed_id}`);
+                        async function checkStatus(patch_id) {
+                            let data = await $.get(`/seed/status/${patch_id}`);
 
                             if (data.error) {
                                 clearInterval(statusCheckTimeout);
@@ -299,13 +299,46 @@
                                     rom.parsePatch(data.data.patch);
                                     resolve(data.data);
                                 });
-                            } else if (data.stage) {
-                                $("#progress-message").text(data.stage);
-                                $("#progress-bar").css("width", data.percent + "%");
                             }
                         }
 
-                        statusCheckTimeout = setInterval(checkStatus, 3000);
+                        // Construct the base WebSocket URL safely matching the current protocol (ws or wss)
+                        const wsProtocol = window.location.protocol === "https:" ? "wss://" : "ws://";
+                        const wsHost = window.location.host;
+                        const wsUri = `${wsProtocol}${wsHost}/ws/seed/status/${result.seed_id}`;
+                        const websocket = new WebSocket(wsUri);
+                        let finished_patch_id;
+
+                        websocket.addEventListener("open", () => {
+                        });
+                        websocket.addEventListener("message", (e) => {
+                            const data = JSON.parse(e.data);
+
+                            switch (data.type) {
+                                case "seed_status":
+                                    $("#progress-message").text(data.message);
+                                    $("#progress-bar").css("width", data.percent + "%");
+                                    break
+                                case "seed_finished":
+                                    finished_patch_id = data.patch_id;
+                                    websocket.close();
+                                    break
+                            }
+                        });
+                        websocket.addEventListener("error", (err) => {
+                            $("#progress-box").hide();
+                            console.error(err);
+                            reject(err);
+                        });
+                        websocket.addEventListener("close", async () => {
+                            if (finished_patch_id) {
+                                await checkStatus(finished_patch_id);
+                            }
+                            else {
+                                $("#progress-box").hide();
+                                reject();
+                            }
+                        });
                     }).catch(err => {
                         clearInterval(statusCheckTimeout);
                         $("#progress-box").hide();
