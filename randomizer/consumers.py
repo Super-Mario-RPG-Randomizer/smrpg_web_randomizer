@@ -27,3 +27,6 @@ class SeedStatusConsumer(AsyncJsonWebsocketConsumer):
 
     async def seed_finished(self, event: dict) -> None:
         await self.send_json(event)
+
+    async def seed_failed(self, event: dict) -> None:
+        await self.send_json(event)

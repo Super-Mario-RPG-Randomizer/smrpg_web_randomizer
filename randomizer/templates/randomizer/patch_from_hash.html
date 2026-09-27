@@ -530,6 +530,7 @@
                         const wsUri = `${wsProtocol}${wsHost}/ws/seed/status/${result.seed_id}`;
                         const websocket = new WebSocket(wsUri);
                         let finished_patch_id;
+                        let error = {};
 
                         websocket.addEventListener("open", () => {
                         });
@@ -540,11 +541,15 @@
                                 case "seed_status":
                                     $("#progress-message").text(data.message);
                                     $("#progress-bar").css("width", data.percent + "%");
-                                    break
+                                    break;
                                 case "seed_finished":
                                     finished_patch_id = data.patch_id;
                                     websocket.close();
-                                    break
+                                    break;
+                                case "seed_failed":
+                                    error = data;
+                                    websocket.close();
+                                    break;
                             }
                         });
                         websocket.addEventListener("error", (err) => {
@@ -558,7 +563,7 @@
                             }
                             else {
                                 $("#progress-box").hide();
-                                reject();
+                                reject(error);
                             }
                         });
                     }).catch(err => {

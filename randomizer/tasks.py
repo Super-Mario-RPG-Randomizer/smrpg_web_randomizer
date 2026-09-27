@@ -1,9 +1,11 @@
 import logging
-from asgiref.sync import async_to_sync
 
+from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 from django.db import transaction
-from django.tasks import task, TaskContext
+from django.dispatch import receiver
+from django.tasks import task, TaskContext, TaskResult, TaskResultStatus
+from django.tasks.signals import task_finished
 
 from randomizer.models import Patch
 
@@ -82,11 +84,36 @@ def generate_seed_task(
         )
         logger.info(f"Seed {seed}: Patch {patch.id} finished generation")
 
-    # Notify Websocket groups
-    payload = {
-        'type': 'seed_finished',
-        'patch_id': str(patch.id),
-    }
-    async_to_sync(channel_layer.group_send)(group_name, payload)
-
     return str(patch.id)
+
+
+@receiver(task_finished)
+def generate_seed_finished(sender, task_result: TaskResult, **kwargs):
+    from randomizer.types.world_errors import WorldBuildingException
+
+    # Get channel layer to send status updates.
+    group_name = f"seed-status-{task_result.id}"
+    channel_layer = get_channel_layer()
+
+    # If successful, task will return patch ID.
+    if task_result.status == TaskResultStatus.SUCCESSFUL:
+        payload = {
+            'type': 'seed_finished',
+            'patch_id': task_result.return_value,
+        }
+        async_to_sync(channel_layer.group_send)(group_name, payload)
+
+    # If failed, check what the error was.
+    elif task_result.status == TaskResultStatus.FAILED:
+        payload = {
+            'type': 'seed_failed',
+        }
+        if task_result.errors:
+            e = task_result.errors[0]
+            if e.exception_class is WorldBuildingException and "Item placement appears unsolvable" in e.traceback:
+                payload['error'] = 'Item placement failed.  Settings may be too restrictive; try loosening your settings.'
+
+        if not payload.get('error'):
+            payload['error'] = 'Failed Creating Seed :('
+
+        async_to_sync(channel_layer.group_send)(group_name, payload)
