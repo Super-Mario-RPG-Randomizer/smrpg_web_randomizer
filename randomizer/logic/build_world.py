@@ -8,6 +8,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 import hashlib
 import json
+import logging
 import re
 from randomizer.utils.debug_output import DEBUG_FILE_DUMPS
 from randomizer.logic.post_shuffle.apply_shuffler_results import (
@@ -106,6 +107,8 @@ from randomizer.logic.post_shuffle.finalize_world import finalize_world
 
 if TYPE_CHECKING:
     from randomizer.types.gameworld import GameWorld
+
+logger = logging.getLogger(__name__)
 
 
 def compute_seed_hash(version: str, seed: int | str, flag_string: str) -> str:
@@ -246,8 +249,7 @@ def build_world(world: GameWorld) -> None:
             world._slot_dummy_indices = None
             world._flag_dummy_index = None
             world._invisible_item_locations = None
-            if world.settings.debug_mode:
-                debug_print(f"[DEBUG] Placement failed with {e.unplaced_count} unplaced items, retrying...")
+            logger.debug(f"Placement failed with {e.unplaced_count} unplaced items, retrying...")
 
             count = e.unplaced_count
             failure_counts[count] = failure_counts.get(count, 0) + 1
@@ -267,7 +269,7 @@ def build_world(world: GameWorld) -> None:
                     )
                 continue
 
-            if failure_counts and all(
+            if failure_counts and any(
                 v >= MAX_FAILURES_PER_COUNT for v in failure_counts.values()
             ):
                 # Budget spent. place() is first-fit with no backtracking, so a
@@ -277,8 +279,7 @@ def build_world(world: GameWorld) -> None:
                 # the settings unsolvable. The repair stays off for every attempt
                 # above it, so a seed that builds today builds identically.
                 world.allow_placement_repair = True
-                if world.settings.debug_mode:
-                    debug_print("[DEBUG] Retry budget spent; retrying with stall repair enabled")
+                logger.warning("Retry budget spent; retrying with stall repair enabled")
         except Exception:
             # Re-raise unexpected exceptions
             raise
