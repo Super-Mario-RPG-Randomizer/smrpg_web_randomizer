@@ -1,7 +1,7 @@
-Django==6.1
-gunicorn==25.1.0
+Django==6.1.2
+gunicorn==26.2.0
 jsonfield2==4.0.0.post0
-Markdown==3.10.2
+Markdown==3.11.2
 nlzss==0.1.2
-psycopg2-binary==2.9.11
+psycopg2-binary==2.9.13
 Wii.py==0.3
